@@ -128,7 +128,7 @@
                         <!-- Slide 1 -->
                         <div class="carousel-item active">
                             <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
-                                <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" alt="Attack on Titan" class="d-block w-100 h-full object-cover object-top">
+                                <img src="{% static 'myapp/img/slide1.jpg' %}" alt="Attack on Titan" class="d-block w-100 h-full object-cover object-top">
                                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
                                     <h2 class="text-4xl font-bold text-white mb-4">Attack on Titan</h2>
                                     <div class="flex space-x-4 mb-4">
@@ -144,7 +144,7 @@
                         <!-- Slide 2 -->
                         <div class="carousel-item">
                             <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
-                                <img src="https://cdn.myanimelist.net/images/anime/5/75639.jpg" alt="One Punch Man" class="d-block w-100 h-full object-cover object-top">
+                                <img src="{% static 'myapp/img/slide2.jpg' %}" alt="One Punch Man" class="d-block w-100 h-full object-cover object-top">
                                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
                                     <h2 class="text-4xl font-bold text-white mb-4">One Punch Man</h2>
                                     <div class="flex space-x-4 mb-4">
@@ -160,7 +160,7 @@
                         <!-- Slide 3 -->
                         <div class="carousel-item">
                             <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
-                                <img src="https://cdn.myanimelist.net/images/anime/11/39717.jpg" alt="Sword Art Online" class="d-block w-100 h-full object-cover object-top">
+                                <img src="{% static 'myapp/img/slide3.jpg' %}"alt="Sword Art Online" class="d-block w-100 h-full object-cover object-top">
                                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
                                     <h2 class="text-4xl font-bold text-white mb-4">Sword Art Online</h2>
                                     <div class="flex space-x-4 mb-4">
@@ -189,11 +189,11 @@
         </div>
     
         <!-- Most Liked Section (Chiếm 1 cột bên phải) -->
-        <div class="w-full md:w-64 bg-slate-800 rounded-lg p-4 shadow-lg">
+        <div class="w-full  md:w-64 bg-slate-800 rounded-lg p-4 shadow-lg">
             <h3 class="text-xl font-bold text-white mb-4">PHIM ĐƯỢC YÊU THÍCH NHẤT</h3>
             <div class="space-y-4">
                 <!-- Liked Movie 1 -->
-                <div class="flex space-x-3">
+                <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
                     <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" alt="Attack on Titan" class="w-20 h-20 object-cover rounded">
                     <div>
                         <h4 class="font-bold text-white">Đại chiến người khổng lồ</h4>
@@ -202,8 +202,8 @@
                 </div>
     
                 <!-- Liked Movie 2 -->
-                <div class="flex space-x-3">
-                    <img src="https://cdn.myanimelist.net/images/anime/1670/130358.jpg" alt="Natra" class="w-20 h-20 object-cover rounded">
+                <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
+                    <img src="{% static 'myapp/img/natra.jpg' %}" alt="Natra" class="w-20 h-20 object-cover rounded">
                     <div>
                         <h4 class="font-bold text-white">Natra ma đồng giáng thế</h4>
                         <p class="text-sm text-gray-400">Tập 1</p>
@@ -211,8 +211,8 @@
                 </div>
     
                 <!-- Liked Movie 3 -->
-                <div class="flex space-x-3">
-                    <img src="https://cdn.myanimelist.net/images/anime/1085/131850.jpg" alt="Thanh gươm" class="w-20 h-20 object-cover rounded">
+                <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
+                    <img src="{% static 'myapp/img/thanhguom.jpg' %}" alt="Thanh gươm" class="w-20 h-20 object-cover rounded">
                     <div>
                         <h4 class="font-bold text-white">Thanh gươm diệt quỷ: Làm thợ rèn</h4>
                         <p class="text-sm text-gray-400">Tập 1</p>
@@ -224,12 +224,9 @@
 
 
 <div class="mt-20">
-
-
-
     <!-- Latest Releases -->
     <div class="container mx-auto px-6 py-12 relative">
-        <h3 class="text-2xl font-bold mb-8">PHIM MỚI NHẤT</h3>
+        <h3 class="text-2xl text-dark font-bold mb-8">PHIM MỚI NHẤT</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Movie Card 1 -->
             <div class="bg-slate-800 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300">
@@ -242,7 +239,7 @@
 
             <!-- Movie Card 2 -->
             <div class="bg-slate-800 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300">
-                <img src="https://cdn.myanimelist.net/images/anime/1607/117271.jpg" alt="Dragon Ball Z" class="w-full h-48 object-cover">
+                <img src="{% static 'myapp/img/dragon.jpg' %}" alt="Dragon Ball Z" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h4 class="font-bold mb-2">Bay viên ngọc rồng Z</h4>
                     <p class="text-sm text-gray-400">Số tập: 117</p>
