@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, TheLoai, DienVien, Movie, DanhGia, LichSuXem, TapPhim
+from .models import User, TheLoai, DienVien, Movie, DanhGia, LichSuXem
 
 
 
@@ -34,12 +34,6 @@ class MovieAdmin(admin.ModelAdmin):
         return ", ".join([tl.ten for tl in obj.the_loai.all()])
     danh_sach_the_loai.short_description = "Thể Loại"
 
-@admin.register(TapPhim)
-class TapPhimAdmin(admin.ModelAdmin):
-    list_display = ("phim", "so_tap", "ten_tap", "ngay_phat_hanh")
-    list_filter = ("phim", "ngay_phat_hanh")
-    search_fields = ("phim__ten_phim", "ten_tap")
-    ordering = ("phim", "so_tap")
 
 # 🟢 Quản lý Đánh Giá
 @admin.register(DanhGia)

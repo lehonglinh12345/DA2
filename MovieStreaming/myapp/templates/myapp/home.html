@@ -2,178 +2,62 @@
 {% load static %}
 
 {% block content %}
-{% comment %} <header class="header bg-dark text-light p-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <a href="{% url 'home' %}" class="d-flex align-items-center text-decoration-none">
-            <img src="{% static 'myapp/img/logo.jpg' %}" alt="Movie Streaming Logo" title="linh vật web toi"class="logo" style="height: 70px; margin-right: 10px;border-radius: 5px;">
-            <h5 >MOVIE STREAMING</h5>
-        </a>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{% url 'home' %}" class="nav-link text-light">Trang Chủ</a></li>
-                    <li class="nav-item"><a href="{% url 'gioithieu' %}" class="nav-link text-light">Giới Thiệu</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownMenu" role="button" data-bs-toggle="dropdown">Khác</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Thể Loại</a></li>
-                            <li><a class="dropdown-item" href="#">Top Trending</a></li>
-                            <li><a class="dropdown-item" href="#">Gói Dịch Vụ</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <input type="text" class="form-control w-25" placeholder="🔍 Tìm kiếm phim...">
-    </div>
-</header>
-
-<main class="container my-4">
-
-    <!-- 🏆 CAROUSEL -->
-    <div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{% static 'myapp/img/slide1.jpg' %}" class="d-block w-100 rounded-3" alt="Movie 1">
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'myapp/img/slide2.jpg' %}" class="d-block w-100 rounded-3" alt="Movie 2">
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'myapp/img/slide3.jpg' %}" class="d-block w-100 rounded-3" alt="Movie 3">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-    </div>
-
-
-
-    <!-- 🎥 TRÌNH PHÁT VIDEO -->
-    <section class="mt-5 text-center">
-        <h2 class="text-danger">🎬 Xem Tập Phim</h2>
-        <video id="videoPlayer" controls class="w-75 rounded-3 shadow-lg">
-            <source src="{{ MEDIA_URL }}media/videos/one_piece_tập_1.mp4" type="video/mp4">
-            Trình duyệt không hỗ trợ phát video.
-        </video>
-
-        <div class="mt-3">
-            {% for episode in episodes %}
-            <button class="btn btn-outline-primary m-1" onclick="playEpisode('{{ episode.video.url }}')">
-                Tập {{ episode.so_tap }}
-            </button>
-            {% endfor %}
-        </div>
-    </section> 
-
-</main> {% endcomment %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Streaming</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-      <!-- Navigation -->
-    <nav class="bg-slate-900 py-4 px-6  w-full z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="{% url 'home' %}" class="d-flex align-items-center text-decoration-none">
-                <img src="{% static 'myapp/img/logo.jpg' %}" alt="Movie Streaming Logo" title="linh vật web toi"class="logo" style="height: 70px; margin-right: 10px;border-radius: 5px;">
-                <h5 >MOVIE STREAMING</h5>
-            </a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#" class="hover:text-blue-500">TRANG CHỦ</a>
-                <a href="#" class="hover:text-blue-500">GIỚI THIỆU</a>
-                <div class="relative group">
-                    <a href="#" class="hover:text-blue-500">KHÁC <i class="fas fa-chevron-down ml-1"></i></a>
-                </div>
-                <div class="relative group">
-                    <a href="#" class="hover:text-blue-500">NGÔN NGỮ <i class="fas fa-chevron-down ml-1"></i></a>
-                </div>
-            </div>
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <input type="text" placeholder="Search..." class="bg-gray-700 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button class="absolute right-3 top-2.5">
-                        <i class="fas fa-search text-gray-400"></i>
-                    </button>
-                </div>
-                <a href="#" class="hover:text-blue-500">LỊCH SỬ</a>
-                <a href="#" class="hover:text-blue-500">TôI</a>
-            </div>
-        </div>
-    </nav>
-
-</head>
-<body class="text-gray-100  ">
-  
-
+<body class="text-gray-100 bg-dark ">
     <div class=" mt-2 flex flex-col md:flex-row items-start space-x-6">
-
         <!-- Carousel Section -->
         <div class="flex-1 ">
             <div class="relative w-full h-64 bg-gray-300 rounded-lg shadow-lg">
                 <p class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl font-bold"><div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <!-- Slide 1 -->
+                        
                         <div class="carousel-item active">
                             <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
-                                <img src="{% static 'myapp/img/slide1.jpg' %}" alt="Attack on Titan" class="d-block w-100 h-full object-cover object-top">
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
-                                    <h2 class="text-4xl font-bold text-white mb-4">Attack on Titan</h2>
+                                <a href="{% url 'home' %}"> <img src="{% static 'myapp/img/slide1.jpg' %}" alt="Attack on Titan" class="d-block w-100 h-full object-cover object-top">
+                                </a><div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
+                                    <h2 class="text-4xl font-bold text-white mb-4">One Piece ( Đảo hải tặc ) </h2>
                                     <div class="flex space-x-4 mb-4">
-                                        <span class="bg-blue-600 text-white px-3 py-1 rounded">Nhật Huyền</span>
-                                        <span class="bg-blue-600 text-white px-3 py-1 rounded">Cấm Hung</span>
+                                        <span class="bg-blue-600 text-white px-3 py-1 rounded">Anime</span>
+                                        <span class="bg-blue-600 text-white px-3 py-1 rounded">Đồng đội</span>
                                         <span class="bg-blue-600 text-white px-3 py-1 rounded">Phiêu Lưu</span>
                                     </div>
-                                    <p class="text-gray-300 max-w-2xl">Một bộ phim hoạt hình Nhật Bản kể về cuộc chiến của loài người chống lại những Titan khổng lồ...</p>
+                                    <p class="text-gray-300 max-w-2xl">Câu chuyện về Luffy và băng Mũ Rơm trên hành trình tìm kiếm kho báu vĩ đại One Piece.</p>
                                 </div>
                             </div>
                         </div>
                 
-                        <!-- Slide 2 -->
+                        
                         <div class="carousel-item">
                             <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
-                                <img src="{% static 'myapp/img/slide2.jpg' %}" alt="One Punch Man" class="d-block w-100 h-full object-cover object-top">
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
-                                    <h2 class="text-4xl font-bold text-white mb-4">One Punch Man</h2>
+                                <a href="{% url 'home' %}">  <img src="{% static 'myapp/img/slide2.jpg' %}" alt="One Punch Man" class="d-block w-100 h-full object-cover object-top">
+                                </a> <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
+                                    <h2 class="text-4xl font-bold text-white mb-4">Attack on titan</h2>
                                     <div class="flex space-x-4 mb-4">
-                                        <span class="bg-red-600 text-white px-3 py-1 rounded">Hài Hước</span>
+                                        <span class="bg-red-600 text-white px-3 py-1 rounded">Anime</span>
                                         <span class="bg-red-600 text-white px-3 py-1 rounded">Hành Động</span>
                                         <span class="bg-red-600 text-white px-3 py-1 rounded">Siêu Năng Lực</span>
                                     </div>
-                                    <p class="text-gray-300 max-w-2xl">Câu chuyện về Saitama - anh hùng mạnh đến mức có thể đánh bại bất cứ kẻ địch nào chỉ bằng một cú đấm...</p>
+                                    <p class="text-gray-300 max-w-2xl">Loài người phải chống lại những Titan khổng lồ để bảo vệ thế giới của mình...</p>
                                 </div>
                             </div>
                         </div>
                 
-                        <!-- Slide 3 -->
+                        
                         <div class="carousel-item">
                             <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
-                                <img src="{% static 'myapp/img/slide3.jpg' %}"alt="Sword Art Online" class="d-block w-100 h-full object-cover object-top">
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
-                                    <h2 class="text-4xl font-bold text-white mb-4">Sword Art Online</h2>
+                                <a href="{% url 'home' %}">  <img src="{% static 'myapp/img/slide3.jpg' %}"alt="Sword Art Online" class="d-block w-100 h-full object-cover object-top">
+                                </a> <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
+                                    <h2 class="text-4xl font-bold text-white mb-4">Kimetsu no yaiba</h2>
                                     <div class="flex space-x-4 mb-4">
-                                        <span class="bg-green-600 text-white px-3 py-1 rounded">Game</span>
+                                        <span class="bg-green-600 text-white px-3 py-1 rounded">Anime</span>
                                         <span class="bg-green-600 text-white px-3 py-1 rounded">Phiêu Lưu</span>
-                                        <span class="bg-green-600 text-white px-3 py-1 rounded">Lãng Mạn</span>
+                                        <span class="bg-green-600 text-white px-3 py-1 rounded">Vui Vẻ</span>
                                     </div>
-                                    <p class="text-gray-300 max-w-2xl">Câu chuyện về Kirito - một game thủ bị mắc kẹt trong thế giới ảo Sword Art Online và phải chiến đấu để sinh tồn...</p>
+                                    <p class="text-gray-300 max-w-2xl"> Câu chuyện về Tanjiro - cậu bé chiến đấu chống lại loài quỷ để bảo vệ em gái và báo thù....</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                
+            
                     <!-- Điều hướng -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
@@ -181,8 +65,7 @@
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                         <span class="carousel-control-next-icon"></span>
                     </button>
-                    
-                    
+        
                 </div>
                 </p>
             </div>
@@ -192,30 +75,30 @@
         <div class="w-full  md:w-64 bg-slate-800 rounded-lg p-4 shadow-lg">
             <h3 class="text-xl font-bold text-white mb-4">PHIM ĐƯỢC YÊU THÍCH NHẤT</h3>
             <div class="space-y-4">
-                <!-- Liked Movie 1 -->
+                
                 <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
                     <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" alt="Attack on Titan" class="w-20 h-20 object-cover rounded">
                     <div>
                         <h4 class="font-bold text-white">Đại chiến người khổng lồ</h4>
-                        <p class="text-sm text-gray-400">Tập 1</p>
+                        <p class="text-sm text-gray-400"></p>
                     </div>
                 </div>
     
-                <!-- Liked Movie 2 -->
+                
                 <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
                     <img src="{% static 'myapp/img/natra.jpg' %}" alt="Natra" class="w-20 h-20 object-cover rounded">
                     <div>
                         <h4 class="font-bold text-white">Natra ma đồng giáng thế</h4>
-                        <p class="text-sm text-gray-400">Tập 1</p>
+                        <p class="text-sm text-gray-400"></p>
                     </div>
                 </div>
     
-                <!-- Liked Movie 3 -->
+                
                 <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
                     <img src="{% static 'myapp/img/thanhguom.jpg' %}" alt="Thanh gươm" class="w-20 h-20 object-cover rounded">
                     <div>
                         <h4 class="font-bold text-white">Thanh gươm diệt quỷ: Làm thợ rèn</h4>
-                        <p class="text-sm text-gray-400">Tập 1</p>
+                        <p class="text-sm text-gray-400"></p>
                     </div>
                 </div>
             </div>
@@ -225,45 +108,60 @@
 
 <div class="mt-20">
     <!-- Latest Releases -->
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
     <div class="container mx-auto px-6 py-12 relative">
-        <h3 class="text-2xl text-dark font-bold mb-8">PHIM MỚI NHẤT</h3>
+        <h3 class="text-2xl text-white font-bold mb-8">PHIM MỚI NHẤT</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Movie Card 1 -->
-            <div class="bg-slate-800 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300">
-                <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" alt="Attack on Titan" class="w-full h-48 object-cover">
+            
+             <div class="bg-slate-800 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300">
+               <a href="{% url 'home' %}">
+                 <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" alt="Attack on Titan" class="w-full h-48 object-cover">
+                </a>
                 <div class="p-4">
                     <h4 class="font-bold mb-2">Đại chiến người khổng lồ 3</h4>
-                    <p class="text-sm text-gray-400">Số tập: 22</p>
+                    <p class="text-sm text-gray-400"></p>
                 </div>
             </div>
 
-            <!-- Movie Card 2 -->
+           
             <div class="bg-slate-800 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300">
                 <img src="{% static 'myapp/img/dragon.jpg' %}" alt="Dragon Ball Z" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h4 class="font-bold mb-2">Bay viên ngọc rồng Z</h4>
-                    <p class="text-sm text-gray-400">Số tập: 117</p>
+                    <p class="text-sm text-gray-400"></p>
                 </div>
             </div>
 
-            <!-- Movie Card 3 -->
+            
             <div class="bg-slate-800 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300">
                 <img src="https://cdn.myanimelist.net/images/anime/6/73245.jpg" alt="One Piece" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h4 class="font-bold mb-2">One piece(Đảo hải tặc)</h4>
-                    <p class="text-sm text-gray-400">Số tập: 1122</p>
+                    <p class="text-sm text-gray-400"></p>
                 </div>
             </div>
 
-            <!-- Movie Card 4 -->
+           
             <div class="bg-slate-800 rounded-lg overflow-hidden hover:transform hover:scale-105 transition duration-300">
                 <img src="https://cdn.myanimelist.net/images/anime/11/39717.jpg" alt="Sword Art Online" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h4 class="font-bold mb-2">Đao kiếm thần vực</h4>
-                    <p class="text-sm text-gray-400">Số tập: 25</p>
+                    <p class="text-sm text-gray-400"></p>
                 </div>
             </div>
         </div>
+    </div>
+</div><button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon text-bg-dark " aria-hidden="true"></span>
+    <span class="visually-hidden ">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+    <span class="carousel-control-next-icon text-bg-dark " aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+
+        
     </div>
 </div>
     

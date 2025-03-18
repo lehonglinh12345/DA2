@@ -51,18 +51,6 @@ class Movie(models.Model):
     def __str__(self):
         return self.ten_phim
     
-class TapPhim(models.Model):
-    phim = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="taps", verbose_name="Phim")
-    so_tap = models.PositiveIntegerField(verbose_name="Số tập")
-    ten_tap = models.CharField(max_length=200, verbose_name="Tên tập")
-    video = models.FileField(upload_to="phim/tapphim/", verbose_name="Video tập phim")
-    ngay_phat_hanh = models.DateField(verbose_name="Ngày phát hành", null=True, blank=True)
-
-    class Meta:
-        ordering = ["so_tap"]
-
-    def __str__(self):
-        return f"{self.phim.ten_phim} - Tập {self.so_tap}: {self.ten_tap}"
 
 
 
