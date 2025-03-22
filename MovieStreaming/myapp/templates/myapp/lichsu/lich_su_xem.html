@@ -1,0 +1,26 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<h2>Lịch Sử Xem Phim</h2>
+<table>
+    <tr>
+        <th>Phim</th>
+        <th>Thời gian xem</th>
+        <th>Thời gian kết thúc</th>
+    </tr>
+    {% for ls in lich_su %}
+    <tr>
+        <td>{{ ls.phim.ten_phim }}</a></td>
+
+        <td>{{ ls.thoi_gian_bat_dau }}</td>
+        <td>{{ ls.thoi_gian_ket_thuc|default:"Chưa hoàn thành" }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">Chưa có lịch sử xem phim.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

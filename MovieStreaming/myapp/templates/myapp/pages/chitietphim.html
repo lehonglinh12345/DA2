@@ -1,0 +1,86 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Phần hiển thị phim -->
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="position-relative">
+                    <!-- Ảnh bìa -->
+                    <img id="moviePoster" src="{{ movie.anh_bia.url }}" class="card-img-top  h-80 rounded" style="height: 500px; object-fit: cover;" alt="{{ movie.ten_phim }}">
+                    <!-- Player video -->
+                    <div id="videoContainer" class="d-none">
+                        {% if movie.video_url %}
+                        <iframe width="100%" height="500" 
+                        src="https://www.youtube.com/embed/Jo-UXUubUW8?start=10&autoplay=1" 
+                        frameborder="0" allowfullscreen>
+                    </iframe>
+                        {% else %}
+                            <p class="text-muted">Video không khả dụng.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body text-center">
+                    <h3 class="fw-bold">{{ movie.ten_phim }}</h3>
+                    <p class="text-muted">Thời lượng: {{ movie.thoi_luong }} phút</p>
+                    <!-- Nút xem phim -->
+                    <button class="btn btn-danger fw-bold px-4 py-2 rounded-pill shadow-sm" onclick="playMovie()">
+                        ▶️ Xem phim ngay
+                    </button>
+                </div>
+            </div>
+        
+            <h4 class="mt-4 fw-bold">Mô tả:</h4>
+            <p class="text-muted">{{ movie.mo_ta }}</p>
+        </div>
+        
+
+        <!-- Danh sách phim yêu thích -->
+        <div class="col-md-4">
+            <div class="bg-dark text-white p-4 rounded shadow-lg">
+                <h3 class="text-center fw-bold mb-4">Phim Được Yêu Thích</h3>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center bg-transparent border-0 text-white">
+                        <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" alt="Attack on Titan" class="w-25 rounded me-3">
+                        <span>Đại chiến người khổng lồ</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center bg-transparent border-0 text-white">
+                        <img src="{% static 'myapp/img/natra.jpg' %}" alt="Natra" class="w-25 rounded me-3">
+                        <span>Natra ma đồng giáng thế</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center bg-transparent border-0 text-white">
+                        <img src="{% static 'myapp/img/thanhguom.jpg' %}" alt="Thanh gươm" class="w-25 rounded me-3">
+                        <span>Thanh gươm diệt quỷ: Làm thợ rèn</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phần bình luận -->
+    <div class="mt-4 bg-light p-3 rounded shadow-sm">
+        <h5 class="fw-bold">Bình luận</h5>
+        <p class="text-muted">0 Bình luận</p>
+    </div>
+</div>
+
+<script>
+   
+       
+    
+        function playMovie() {
+            document.getElementById("moviePoster").classList.add("d-none");
+            document.getElementById("videoContainer").classList.remove("d-none");
+    
+        }
+    
+    
+    
+</script>
+
+{% include 'myapp/layout/footer.html' %}
+{% endblock %}

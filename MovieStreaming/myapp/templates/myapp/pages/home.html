@@ -1,0 +1,338 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<body class="text-gray-100  ">
+    <button id="backToTop" class="btn btn-primary rounded-circle p-3">
+        ⬆
+    </button>
+    <div class=" mt-2 flex flex-col md:flex-row items-start space-x-6">
+        <!-- Carousel Section -->
+        <div class="flex-1 ">
+            <div class="relative w-full h-64 bg-gray-300 rounded-lg shadow-lg">
+                <p class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl font-bold"><div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        
+                        <div class="carousel-item active">
+                            <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
+                                <a href="{% url 'onepiece' %}">
+                                    <img src="{% static 'myapp/img/slide1.jpg' %}" alt="" class="d-block w-100 h-full object-cover object-top">
+                                </a><div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
+                                    <h2 class="text-4xl font-bold text-white mb-4">One Piece ( Đảo hải tặc ) </h2>
+                                    <div class="flex space-x-4 mb-4">
+                                        <span class="bg-blue-600 text-white px-3 py-1 rounded">Anime</span>
+                                        <span class="bg-blue-600 text-white px-3 py-1 rounded">Đồng đội</span>
+                                        <span class="bg-blue-600 text-white px-3 py-1 rounded">Phiêu Lưu</span>
+                                    </div>
+                                    <p class="text-gray-300 max-w-2xl">Câu chuyện về Luffy và băng Mũ Rơm trên hành trình tìm kiếm kho báu vĩ đại One Piece.</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        
+                        <div class="carousel-item">
+                            <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
+                                <a href="{% url 'chitietphim' id=1 %}">  <img src="{% static 'myapp/img/slide2.jpg' %}" alt="Attack on Titan" class="d-block w-100 h-full object-cover object-top">
+                                </a> <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
+                                    <h2 class="text-4xl font-bold text-white mb-4">Attack on titan</h2>
+                                    <div class="flex space-x-4 mb-4">
+                                        <span class="bg-red-600 text-white px-3 py-1 rounded">Anime</span>
+                                        <span class="bg-red-600 text-white px-3 py-1 rounded">Hành Động</span>
+                                        <span class="bg-red-600 text-white px-3 py-1 rounded">Siêu Năng Lực</span>
+                                    </div>
+                                    <p class="text-gray-300 max-w-2xl">Loài người phải chống lại những Titan khổng lồ để bảo vệ thế giới của mình...</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        
+                        <div class="carousel-item">
+                            <div class="relative w-full h-[500px] overflow-hidden rounded-xl">
+                                <a href="{% url 'kime' %}">  <img src="{% static 'myapp/img/slide3.jpg' %}"alt="Sword Art Online" class="d-block w-100 h-full object-cover object-top">
+                                </a> <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
+                                    <h2 class="text-4xl font-bold text-white mb-4">Kimetsu no yaiba</h2>
+                                    <div class="flex space-x-4 mb-4">
+                                        <span class="bg-green-600 text-white px-3 py-1 rounded">Anime</span>
+                                        <span class="bg-green-600 text-white px-3 py-1 rounded">Phiêu Lưu</span>
+                                        <span class="bg-green-600 text-white px-3 py-1 rounded">Vui Vẻ</span>
+                                    </div>
+                                    <p class="text-gray-300 max-w-2xl"> Câu chuyện về Tanjiro - cậu bé chiến đấu chống lại loài quỷ để bảo vệ em gái và báo thù....</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Điều hướng -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+        
+                </div>
+                </p>
+            </div>
+        </div>
+    
+        <!-- Most Liked Section (Chiếm 1 cột bên phải) -->
+        <div class="w-full  md:w-64 bg-slate-800 rounded-lg p-4 shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-4">PHIM ĐƯỢC YÊU THÍCH NHẤT</h3>
+            <div class="space-y-4">
+                
+                <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
+                    <a href="{% url 'chitietphim' id=1 %}">    <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" alt="Attack on Titan" class="w-20 h-20 object-cover rounded">
+                  </a>  <div>
+                        <h4 class="font-bold text-white">Đại chiến người khổng lồ</h4>
+                        <p class="text-sm text-gray-400"></p>
+                    </div>
+                </div>
+    
+                
+                <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
+                    <a href="{% url 'natra' %}">   <img src="{% static 'myapp/img/natra.jpg' %}" alt="Natra" class="w-20 h-20 object-cover rounded">
+                    </a><div>
+                        <h4 class="font-bold text-white">Natra ma đồng giáng thế</h4>
+                        <p class="text-sm text-gray-400"></p>
+                    </div>
+                </div>
+    
+                
+                <div class="flex space-x-3 hover:transform hover:scale-105 transition duration-300">
+                    <a href="{% url 'kime' %}">  <img src="{% static 'myapp/img/thanhguom.jpg' %}" alt="Thanh gươm" class="w-20 h-20 object-cover rounded">
+                    </a><div>
+                        <h4 class="font-bold text-white">Thanh gươm diệt quỷ: Làm thợ rèn</h4>
+                        <p class="text-sm text-gray-400"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-40">
+        <h1 class="text-dark  fw-bold fs-2 mb-4 ">PHIM MỚI NHẤT</h1>
+        
+        <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <a href="{% url 'home' %}">
+                                    <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" class=" w-full h-48 object-cover" alt="Attack on Titan">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">Đại chiến người khổng lồ 3</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="{% static 'myapp/img/dragon.jpg' %}" class=" w-full h-48 object-cover" alt="Dragon Ball Z">
+                                <div class="card-body">
+                                    <h5 class="card-title">Bay viên ngọc rồng Z</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/6/73245.jpg" class="w-full h-48 object-cover" alt="One Piece">
+                                <div class="card-body">
+                                    <h5 class="card-title">One Piece (Đảo hải tặc)</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/11/39717.jpg" class="w-full h-48 object-cover" alt="Sword Art Online">
+                                <div class="card-body">
+                                    <h5 class="card-title">Đao kiếm thần vực</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/5/87155.jpg" class="w-full h-48 object-cover" alt="Naruto Shippuden">
+                                <div class="card-body">
+                                    <h5 class="card-title">Naruto Shippuden</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/10/18793.jpg" class="w-full h-48 object-cover" alt="Fairy Tail">
+                                <div class="card-body">
+                                    <h5 class="card-title">Fairy Tail</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/4/19644.jpg" class="w-full h-48 object-cover" alt="Bleach">
+                                <div class="card-body">
+                                    <h5 class="card-title">Bleach</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/3/19212.jpg" class="w-full h-48 object-cover" alt="Death Note">
+                                <div class="card-body">
+                                    <h5 class="card-title">Death Note</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Nút điều hướng -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon text-bg-dark"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon text-bg-dark "></span>
+            </button>
+        </div>
+    </div>
+    
+
+    
+    <div class="container mt-20">
+        <h1 class="text-dark  fw-bold fs-2 mb-4   ">PHIM HAY NHẤT</h1>
+        
+        <div id="movieCarousell" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <a href="{% url 'home' %}">
+                                    <img src="https://cdn.myanimelist.net/images/anime/10/47347.jpg" class=" w-full h-48 object-cover" alt="Attack on Titan">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">Đại chiến người khổng lồ 3</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="{% static 'myapp/img/dragon.jpg' %}" class=" w-full h-48 object-cover" alt="Dragon Ball Z">
+                                <div class="card-body">
+                                    <h5 class="card-title">Bay viên ngọc rồng Z</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/6/73245.jpg" class="w-full h-48 object-cover" alt="One Piece">
+                                <div class="card-body">
+                                    <h5 class="card-title">One Piece (Đảo hải tặc)</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/11/39717.jpg" class="w-full h-48 object-cover" alt="Sword Art Online">
+                                <div class="card-body">
+                                    <h5 class="card-title">Đao kiếm thần vực</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/5/87155.jpg" class="w-full h-48 object-cover" alt="Naruto Shippuden">
+                                <div class="card-body">
+                                    <h5 class="card-title">Naruto Shippuden</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/10/18793.jpg" class="w-full h-48 object-cover" alt="Fairy Tail">
+                                <div class="card-body">
+                                    <h5 class="card-title">Fairy Tail</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/4/19644.jpg" class="w-full h-48 object-cover" alt="Bleach">
+                                <div class="card-body">
+                                    <h5 class="card-title">Bleach</h5>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <img src="https://cdn.myanimelist.net/images/anime/3/19212.jpg" class="w-full h-48 object-cover" alt="Death Note">
+                                <div class="card-body">
+                                    <h5 class="card-title">Death Note</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Nút điều hướng -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousell" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon text-bg-dark"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#movieCarousell" data-bs-slide="next">
+                <span class="carousel-control-next-icon text-bg-dark "></span>
+            </button>
+        </div>
+    </div>
+
+{% include 'myapp/layout/footer.html' %}
+
+<script>
+    const backToTopButton = document.getElementById("backToTop");
+
+    window.onscroll = function () {
+        if (document.documentElement.scrollTop > 200) {
+            backToTopButton.style.display = "block";
+        } else {
+            backToTopButton.style.display = "none";
+        }
+    };
+
+    backToTopButton.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+</script>
+
+</body>
+</html>
+
+{% endblock %}

@@ -29,7 +29,7 @@ class TrangThaiPhim(TextChoices):
 
 class Movie(models.Model):
     ten_phim = models.CharField(max_length=200, verbose_name="Tên phim")
-    video = models.FileField(upload_to="phim/videos/", null=True, blank=True, verbose_name="Video phim")
+    video_url = models.URLField(null=True, blank=True, verbose_name="Link video") 
     the_loai = models.ManyToManyField(TheLoai, related_name="movies", verbose_name="Thể loại")
     mo_ta = models.TextField(verbose_name="Mô tả phim")
     dao_dien = models.CharField(max_length=200, verbose_name="Đạo diễn")
@@ -37,7 +37,6 @@ class Movie(models.Model):
     ngay_phat_hanh = models.DateField(null=True, blank=True, verbose_name="Ngày phát hành")
     thoi_luong = models.PositiveIntegerField(help_text="Thời lượng phim tính bằng phút", verbose_name="Thời lượng")
     anh_bia = models.ImageField(upload_to="phim/anhbia/", null=True, blank=True, verbose_name="Ảnh bìa")
-    trailer = models.URLField(null=True, blank=True, verbose_name="Trailer")
     trang_thai = models.CharField(
         max_length=20,
         choices=TrangThaiPhim.choices,
@@ -50,7 +49,11 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.ten_phim
-    
+    def get_embed_url(self):
+        """Chuyển đổi link YouTube thành dạng nhúng."""
+        if self.video_url and "watch?v=" in self.video_url:
+            return self.video_url.replace("watch?v=", "embed/")
+        return self.video_url
 
 
 

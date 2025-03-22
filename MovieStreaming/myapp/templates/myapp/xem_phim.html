@@ -1,0 +1,19 @@
+<script>
+    function playMovie() {
+        let phimId = "{{ phim.id }}"; // Lấy ID phim
+
+        // Gửi request AJAX để lưu lịch sử
+        fetch(`/xem-phim/${phimId}/`, {
+            method: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data.message))
+        .catch(error => console.error("Lỗi:", error));
+
+        // Chuyển hướng sang trang xem phim
+        window.location.href = `/xem-phim/${phimId}/`;
+    }
+</script>
