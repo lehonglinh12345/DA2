@@ -1,20 +1,55 @@
-from django.contrib.auth.models import AbstractUser 
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import TextChoices
-from django.contrib.auth.models import AbstractUser, Group, Permission
 
-class User(AbstractUser):
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        """Tạo user bình thường"""
+        if not email:
+            raise ValueError("Người dùng phải có địa chỉ email")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        """Tạo superuser"""
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        return self.create_user(email, password, **extra_fields)
+
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True, verbose_name="Email")
+    fullname = models.CharField(max_length=255, verbose_name="Họ và tên", blank=True, null=True)  
     avatar = models.ImageField(upload_to="users/avatars/", null=True, blank=True, verbose_name="Ảnh đại diện")
     ngay_sinh = models.DateField(null=True, blank=True, verbose_name="Ngày sinh")
-    groups = models.ManyToManyField(Group, related_name="custom_user_groups", blank=True)
-    user_permissions = models.ManyToManyField(Permission, related_name="custom_user_permissions", blank=True)
+    
+    is_active = models.BooleanField(default=True, verbose_name="Kích hoạt")
+    is_staff = models.BooleanField(default=False, verbose_name="Nhân viên")
+
+    groups = models.ManyToManyField(Group, related_name="user_groups", blank=True)
+    user_permissions = models.ManyToManyField(Permission, related_name="user_permissions", blank=True)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'  # Đặt email làm username
+    REQUIRED_FIELDS = []  # Không cần username
+
+    def __str__(self):
+        return self.email
+
 
 class TheLoai(models.Model):
     ten = models.CharField(max_length=100, unique=True, verbose_name="Tên thể loại")
 
+    class Meta:
+        verbose_name_plural = "Thể loại"
+
     def __str__(self):
         return self.ten
+
 
 class DienVien(models.Model):
     ten = models.CharField(max_length=200, verbose_name="Tên diễn viên")
@@ -49,11 +84,18 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.ten_phim
-    def get_embed_url(self):
-        """Chuyển đổi link YouTube thành dạng nhúng."""
-        if self.video_url and "watch?v=" in self.video_url:
-            return self.video_url.replace("watch?v=", "embed/")
-        return self.video_url
+import re   
+
+def get_embed_url(self):
+    """Chuyển đổi link YouTube thành dạng nhúng."""
+    if self.video_url:
+        youtube_patterns = [
+            (r"watch\?v=([\w-]+)", r"embed/\1"),   # Dạng: youtube.com/watch?v=abc123
+            (r"youtu\.be/([\w-]+)", r"youtube.com/embed/\1")  # Dạng: youtu.be/abc123
+        ]
+        for pattern, replacement in youtube_patterns:
+            self.video_url = re.sub(pattern, replacement, self.video_url)
+    return self.video_url
 
 
 
@@ -72,7 +114,7 @@ class DanhGia(models.Model):
         ordering = ['-ngay_danh_gia']
 
     def __str__(self):
-        return f"{self.user.username} - {self.phim.ten_phim} ({self.diem})"
+        return f"{self.user.email} - {self.phim.ten_phim} ({self.diem})"
 
 class LichSuXem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="watch_history", verbose_name="Người dùng")
@@ -81,4 +123,4 @@ class LichSuXem(models.Model):
     thoi_gian_ket_thuc = models.DateTimeField(null=True, blank=True, verbose_name="Thời gian kết thúc")
 
     def __str__(self):
-        return f"{self.user.username} đã xem {self.phim.ten_phim}"
+        return f"{self.user.email} đã xem {self.phim.ten_phim}"

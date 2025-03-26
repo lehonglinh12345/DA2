@@ -56,12 +56,12 @@
             <div class="flex items-center space-x-4">   
                 <div class="relative">
                     <form action="{% url 'search_movies' %}" method="GET" class="d-flex">
-                        <input type="text" name="q" placeholder="Tìm theo tên..." class="form-control me-2">
+                        <input type="text" name="q" placeholder="Tìm tên phim,diễn viên..." class="form-control me-2">
                         <button type="submit" class="btn btn-outline-light"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
                 <a href="{% url 'lich_su_xem' %}" class="hover:text-blue-500">LỊCH SỬ</a>
-                <a href="#" class="hover:text-blue-500">TôI</a>
+                <a href="{% url 'profile'%}" class="hover:text-blue-500">TôI</a>
             </div>
         </div>
     </nav>

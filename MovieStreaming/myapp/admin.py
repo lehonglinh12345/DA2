@@ -1,15 +1,31 @@
 from django.contrib import admin
 from .models import User, TheLoai, DienVien, Movie, DanhGia, LichSuXem
-
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import User
 
 
 
 # 🟢 Quản lý User
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'username', 'email', 'is_staff', 'is_active')
-    search_fields = ('username', 'email')
-    list_filter = ('is_staff', 'is_active')
+    list_display = ('email', 'avatar', 'ngay_sinh', 'is_active', 'is_staff')  # Không có 'username'
+    search_fields = ('email', 'ngay_sinh')
+    ordering = ('email',)
+
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        ('Thông tin cá nhân', {'fields': ('avatar', 'ngay_sinh')}),
+        ('Quyền hạn', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+    )
+
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2', 'is_active', 'is_staff')}
+        ),
+    )
+
 
 # 🟢 Quản lý Thể Loại
 @admin.register(TheLoai)

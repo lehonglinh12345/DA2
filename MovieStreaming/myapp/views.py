@@ -3,7 +3,7 @@ from .models import Movie
 
 
 def home(request):
-  
+
     return render(request, "myapp/pages/home.html")
 
 def gioithieu(request):
@@ -18,6 +18,35 @@ def kime(request):
 def natra(request):
     movie = get_object_or_404(Movie, ten_phim="NaTra2") 
     return render(request, 'myapp/pages/phim/natra.html', {'movie': movie})
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from .models import User
+from django.contrib import messages
+
+def login_view(request):   
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Kiểm tra email có tồn tại trong hệ thống không
+        user = authenticate(request, username=email, password=password)
+        
+        if user is not None:
+            login(request, user)  # Đăng nhập Django
+            return redirect('home')  # Thay 'home' bằng tên URL hợp lệ
+        else:
+            messages.error(request, 'Email hoặc mật khẩu không đúng!')
+            return render(request, 'myapp/log/login.html', {
+                'email': email,
+                'password': password  # Không khuyến khích hiển thị lại mật khẩu
+            })  
+
+    return render(request, 'myapp/log/login.html')
+
+
+
+def profile(request):
+    return render(request, "myapp/log/profile.html")
 
 def chitietphim(request, id):  
     movie = get_object_or_404(Movie, id=id)
@@ -92,3 +121,26 @@ def xem_phim(request, id):
     movie = get_object_or_404(Movie, id=id)
     return render(request, 'myapp/pages/xem_phim.html', {'movie': movie})
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.contrib.auth.decorators import login_required
+from .models import User
+
+@csrf_exempt
+@login_required
+def update_fullname(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            new_fullname = data.get("fullname")
+
+            # Cập nhật fullname trong database
+            user = request.user
+            user.fullname = new_fullname
+            user.save()
+
+            return JsonResponse({"success": True, "fullname": new_fullname})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+    return JsonResponse({"success": False, "error": "Invalid request"})

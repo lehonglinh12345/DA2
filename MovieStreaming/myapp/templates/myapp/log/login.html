@@ -1,0 +1,48 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100" style="transform: translateY(-60px);">
+    <div class="card shadow-lg p-4" style="width: 400px; border-radius: 12px;">
+        <h2 class="text-center text-primary mb-4">🔐 Đăng Nhập</h2>
+
+        <!-- Hiển thị thông báo lỗi -->
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Form đăng nhập thông thường -->
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="email" class="form-label fw-bold">📧 Email</label>
+                <input type="email" name="email" class="form-control" value="{{ email }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label fw-bold">🔑 Mật khẩu</label>
+                <input type="password" name="password" class="form-control" value="{{ password }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
+        </form>
+
+        <hr>
+
+        <!-- Đăng nhập bằng Google -->
+        <div class="text-center">
+            <p class="mb-2">Hoặc đăng nhập bằng</p>
+            <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-danger w-100">
+                <i class="fab fa-google"></i> Đăng nhập với Google
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FontAwesome cho icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+{% endblock %}

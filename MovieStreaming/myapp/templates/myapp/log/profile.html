@@ -1,0 +1,104 @@
+{% extends "myapp/layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center text-uppercase fw-bold text-darkb fs-3">Thông Tin Cá Nhân</h1>
+    <p class="text-center text-muted">Phiên bản v1</p>
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="card h-100 bg-dark text-light p-4 border-0 shadow-sm">
+                <div class="position-relative d-inline-block mb-3">
+                    <img src="{% static 'myapp/img/slide3.jpg' %}" 
+                         alt="Avatar" 
+                         class="img-fluid rounded-circle border border-3 border-white shadow"
+                         style="width: 150px; height: 150px; object-fit: cover;">
+                    <span class="position-absolute bottom-0 end-0 bg-success rounded-circle p-2 border border-white"></span>
+                </div>
+                <a href="{% url 'login' %}" class="text-decoration-none">
+                    <button class="btn btn-danger w-100 fw-bold py-2 mt-3 transition-all hover-scale">
+                        <i class="fas fa-sign-out-alt me-2"></i>Đăng Xuất
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-secondary p-4 shadow-lg">
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-light">Fullname:</label>
+                    <div class="d-flex justify-content-between align-items-center bg-dark p-2 rounded">
+                        <input type="text" id="fullname" class="form-control bg-dark text-light border-0" value="{{ user.fullname }}" disabled>
+                        <button id="edit-fullname" class="btn btn-sm btn-outline-light">✏️</button>
+                    </div>
+                    <button id="save-fullname" class="btn btn-success mt-2 w-100 d-none">💾 Lưu</button>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-light">Email:</label>
+                    <div class="d-flex justify-content-between align-items-center bg-dark p-2 rounded">
+                        <span id="email" class="text-light">{{ user.email }}</span>
+                        <button class="btn btn-sm btn-outline-light">✏️</button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-light">Password:</label>
+                    <div class="d-flex justify-content-between align-items-center bg-dark p-2 rounded">
+                        <span id="password" class="text-light">******</span>
+                        <button class="btn btn-sm btn-outline-light">✏️</button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-light">Phone Number:</label>
+                    <div class="d-flex justify-content-between align-items-center bg-dark p-2 rounded">
+                        <span id="phone" class="text-light">{{ user.phone }}</span>
+                        <button class="btn btn-sm btn-outline-light">✏️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("edit-fullname").addEventListener("click", function() {
+        let fullnameInput = document.getElementById("fullname");
+        let saveBtn = document.getElementById("save-fullname");
+    
+        fullnameInput.removeAttribute("disabled");
+        fullnameInput.focus();
+        saveBtn.classList.remove("d-none");  // Hiện nút Lưu
+    });
+    
+    document.getElementById("save-fullname").addEventListener("click", function() {
+        let fullnameInput = document.getElementById("fullname");
+        let saveBtn = document.getElementById("save-fullname");
+        let newFullname = fullnameInput.value;
+    
+        // Gửi dữ liệu lên server bằng AJAX
+        fetch("{% url 'update_fullname' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({ fullname: newFullname })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Cập nhật thành công!");
+                fullnameInput.setAttribute("disabled", "true");
+                saveBtn.classList.add("d-none");  // Ẩn nút Lưu
+            } else {
+                alert("Cập nhật thất bại: " + data.error);
+            }
+        })
+        .catch(error => {
+            alert("Lỗi kết nối đến server!");
+            console.error(error);
+        });
+    });
+    
+</script>
+
+{% include 'myapp/layout/footer.html' %}
+{% endblock %}
