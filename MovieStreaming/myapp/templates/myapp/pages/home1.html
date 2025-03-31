@@ -1,0 +1,25 @@
+<h1 class="text-white fw-bold fs-2 mb-4">PHIM SẮP CHIẾU</h1>
+
+<div class="container">
+    <div class="row">
+        {% for movie in upcoming_movies %}
+            <div class="col-md-3">
+                <div class="card bg-dark text-white">
+                    {% if movie.anh_bia %}
+                        <img src="{{ movie.anh_bia.url }}" class="card-img-top" alt="{{ movie.ten_phim }}">
+                    {% else %}
+                        <img src="/static/one.jpg" class="card-img-top" alt="Chưa có ảnh">
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.ten_phim }}</h5>
+                        <p class="card-text">{{ movie.mo_ta|truncatewords:10 }}</p>
+                        <p>Ngày chiếu: {{ movie.ngay_phat_hanh }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-white">Không có phim sắp chiếu nào.</p>
+        {% endfor %}
+    </div>
+</div>

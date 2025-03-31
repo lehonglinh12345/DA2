@@ -1,7 +1,9 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
+from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import TextChoices
+import requests
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -62,9 +64,15 @@ class TrangThaiPhim(TextChoices):
     DANG_CHIEU = "dang_chieu", "Đang Chiếu"
     DA_KET_THUC = "da_ket_thuc", "Đã Kết Thúc"
 
+import re
+import requests
+from django.db import models
+from django.conf import settings
+
 class Movie(models.Model):
     ten_phim = models.CharField(max_length=200, verbose_name="Tên phim")
     video_url = models.URLField(null=True, blank=True, verbose_name="Link video") 
+    tmdb_id = models.PositiveIntegerField(unique=True, null=True, blank=True, verbose_name="TMDb ID") 
     the_loai = models.ManyToManyField(TheLoai, related_name="movies", verbose_name="Thể loại")
     mo_ta = models.TextField(verbose_name="Mô tả phim")
     dao_dien = models.CharField(max_length=200, verbose_name="Đạo diễn")
@@ -84,18 +92,37 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.ten_phim
-import re   
 
-def get_embed_url(self):
-    """Chuyển đổi link YouTube thành dạng nhúng."""
-    if self.video_url:
-        youtube_patterns = [
-            (r"watch\?v=([\w-]+)", r"embed/\1"),   # Dạng: youtube.com/watch?v=abc123
-            (r"youtu\.be/([\w-]+)", r"youtube.com/embed/\1")  # Dạng: youtu.be/abc123
-        ]
-        for pattern, replacement in youtube_patterns:
-            self.video_url = re.sub(pattern, replacement, self.video_url)
-    return self.video_url
+    def get_embed_url(self):
+        """Chuyển đổi link YouTube thành dạng nhúng."""
+        if self.video_url:
+            youtube_patterns = [
+                (r"watch\?v=([\w-]+)", r"embed/\1"),   # Dạng: youtube.com/watch?v=abc123
+                (r"youtu\.be/([\w-]+)", r"youtube.com/embed/\1")  # Dạng: youtu.be/abc123
+            ]
+            for pattern, replacement in youtube_patterns:
+                match = re.search(pattern, self.video_url)
+                if match:
+                    return re.sub(pattern, replacement, self.video_url)
+        return self.video_url
+
+    def get_trailer_url(self):
+        """Lấy trailer từ TMDb API"""
+        api_key = settings.TMDB_API_KEY  # Đặt API key trong settings.py
+        url = f"https://api.themoviedb.org/3/movie/{self.tmdb_id}/videos?api_key={api_key}"
+        
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+            
+            for video in data.get("results", []):
+                if video["type"] == "Trailer" and video["site"] == "YouTube":
+                    return f"https://www.youtube.com/embed/{video['key']}"
+        except requests.exceptions.RequestException as e:
+            print(f"Lỗi khi gọi TMDb API: {e}")
+
+        return None
 
 
 

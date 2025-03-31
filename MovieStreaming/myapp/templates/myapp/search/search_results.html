@@ -9,12 +9,13 @@
     {% if movies %}
         <div class="row ">
             {% for movie in movies %}
-                <div class="col-md-4 col-sm-6 mb-4">
-                    <div class="card movie-card shadow-lg border-0 hover:transform hover:scale-105 transition duration-300 mt-3 ">
+            <div class="col-md-4 col-sm-6 mb-4">
+                <a href="{% url 'chitietphim' movie.id %}" class="text-decoration-none">
+                    <div class="card movie-card shadow-lg border-0 hover:transform hover:scale-105 transition duration-300 mt-3">
                         <!-- Hình ảnh phim -->
                         <div class="position-relative movie-thumbnail">
                             <img id="moviePoster{{ forloop.counter }}" src="{{ movie.anh_bia.url }}"
-                                class="card-img-top rounded-top img-fluid " alt="{{ movie.ten_phim }}">
+                                class="card-img-top rounded-top img-fluid" alt="{{ movie.ten_phim }}">
                             
                             <!-- Video hiển thị khi hover -->
                             <div id="videoContainer{{ forloop.counter }}" class="d-none text-center p-2 video-overlay" >

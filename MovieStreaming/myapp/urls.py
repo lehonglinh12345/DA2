@@ -2,11 +2,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from django.urls import path, include  # ✅ Đúng
+from django.urls import path, include  
 from .views import search_movies, lich_su_xem, xem_phim
 from myapp.views import login_view
 from django.views.generic import TemplateView
-from .views import update_fullname
+from .views import update_fullname, phim_sap_chieu
 
 
 urlpatterns = [
@@ -22,6 +22,7 @@ urlpatterns = [
     path("search/", search_movies, name="search_movies"),
     path('lich-su/', lich_su_xem, name='lich_su_xem'),
     path("update-fullname/", update_fullname, name="update_fullname"),
+    path('phim-sap-chieu/', phim_sap_chieu, name='phim_sap_chieu'), 
     
     
     

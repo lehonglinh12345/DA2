@@ -26,6 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TMDB_API_KEY = "c53ff05a507beb95ce9c55f89908d88d"
 
 
 
